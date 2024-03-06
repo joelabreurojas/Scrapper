@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+</div>
+
+<div class="row justify-content-center main">
+    <h3 class="text-secondary fw-bolder">Powered by Scielo.org</h3>
+    <form class="main-form" method="POST" action="{{ url_for('general.home') }}" enctype="multipart/form-data">
+        <div class="form-row">
+            <label class="form-label">Query</label>
+            <input class="form-input" type="text" name="query" id="query" required />
+        </div>
+        <button class="form-submit" type="submit">Search</button>
+    </form>
+    {% if articles %}
+	<nav class="navbar bg-light">
+	     <ul class="navbar-nav">
+	         {% for article in articles %}
+		     <li class="nav-item">
+		         <a class="nav-link" href="{{ article.link }}" target="_blank">
+			     {{ article.title }}
+		         </a>
+		     </li>
+	         {% endfor %}
+	     </ul>
+         </nav>
+     {% endif %} 
+</div>
+{% endblock %}
